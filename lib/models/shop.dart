@@ -1,0 +1,20 @@
+import 'package:barracks_app/models/barber.dart';
+import 'package:flutter/foundation.dart';
+
+class Shop {
+  final String id;
+  final String name;
+  final String imgUrl;
+  final double lat;
+  final double long;
+  final List<Barber> barbers;
+
+  const Shop({
+    @required this.id,
+    @required this.name,
+    @required this.imgUrl,
+    @required this.lat,
+    @required this.long,
+    @required this.barbers,
+  });
+}

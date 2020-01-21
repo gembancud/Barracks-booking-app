@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "68583881023",
+    "firebase_url": "https://barracksbookingapp.firebaseio.com",
+    "project_id": "barracksbookingapp",
+    "storage_bucket": "barracksbookingapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68583881023:android:eb75672aca5c1a5327bb8a",
+        "android_client_info": {
+          "package_name": "com.gembancud.barracks_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "68583881023-bkv4ser1rvced3ehskdthhq0ci0t7hve.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gembancud.barracks_app",
+            "certificate_hash": "8ec245e6dc3d50259edf8c6474dbb2cf8d9f051a"
+          }
+        },
+        {
+          "client_id": "68583881023-aokqhfht0l1dd4qhp96dmvh1uqn7ja22.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWNPXdE-w30gi3fz1saEhZfq1Z157a7aI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "68583881023-aokqhfht0l1dd4qhp96dmvh1uqn7ja22.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
