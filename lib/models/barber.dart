@@ -9,13 +9,13 @@ class Barber {
   final int dayoff;
   List<Schedule> schedule;
 
-  Barber({
-    @required this.id,
-    @required this.name,
-    @required this.imgUrl,
-    @required this.branch,
-    @required this.dayoff,
-  });
+  Barber(
+      {@required this.id,
+      @required this.name,
+      @required this.imgUrl,
+      @required this.branch,
+      @required this.dayoff,
+      this.schedule});
 
   bool isAvailable(Schedule query) {
     //if it is barber's day of then false;

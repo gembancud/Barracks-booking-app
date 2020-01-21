@@ -49,8 +49,9 @@ class _RegisterState extends State<Register> {
                       SizedBox(height: 160),
                       TextFormField(
                         keyboardType: TextInputType.emailAddress,
-                        validator: (email) =>
-                            email.isEmpty ? 'Enter email' : null,
+                        validator: (email) => EmailValidator.validate(email)
+                            ? 'Enter email'
+                            : null,
                         onChanged: (val) {
                           setState(() {
                             _email = val;

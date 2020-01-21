@@ -7,7 +7,7 @@ class Shop {
   final String imgUrl;
   final double lat;
   final double long;
-  final List<Barber> barbers;
+  final List<String> barbers;
 
   const Shop({
     @required this.id,
