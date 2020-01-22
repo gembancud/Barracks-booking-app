@@ -1,6 +1,5 @@
 import 'package:barracks_app/services/auth.dart';
 import 'package:barracks_app/shared/loading.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {

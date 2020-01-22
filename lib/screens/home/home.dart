@@ -1,3 +1,5 @@
+import 'package:barracks_app/models/barber.dart';
+import 'package:barracks_app/models/schedule.dart';
 import 'package:barracks_app/models/shop.dart';
 import 'package:barracks_app/screens/home/shopsview.dart';
 import 'package:barracks_app/services/auth.dart';
@@ -12,12 +14,22 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<Shop>>.value(
-      value: DatabaseService().shops,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Barracks'),
+    return MultiProvider(
+      providers: [
+        StreamProvider<List<Shop>>.value(
+          value: DatabaseService().shops,
         ),
+        StreamProvider<List<Barber>>.value(
+          value: DatabaseService().barbers,
+        ),
+        StreamProvider<List<Schedule>>.value(
+          value: DatabaseService().schedules,
+        ),
+      ],
+      child: Scaffold(
+        // appBar: AppBar(
+        //   title: Text('Barracks'),
+        // ),
         body: Center(
           child: ShopView(),
         ),

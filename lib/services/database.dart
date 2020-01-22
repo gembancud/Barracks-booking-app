@@ -1,4 +1,5 @@
 import 'package:barracks_app/models/barber.dart';
+import 'package:barracks_app/models/schedule.dart';
 import 'package:barracks_app/models/shop.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -9,7 +10,7 @@ class DatabaseService {
   //Customer collection reference
   final CollectionReference customerCollection =
       Firestore.instance.collection('customer');
-  //
+
   Future updateCustomerData(
       String name, String phonenumber, int absences) async {
     return await customerCollection.document(uid).setData({
@@ -34,7 +35,7 @@ class DatabaseService {
   List<Shop> _shopListfromQuerySnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return Shop(
-        id: uid,
+        id: doc.documentID,
         name: doc.data['name'],
         imgUrl: doc.data['imgUrl'],
         lat: doc.data['lat'],
@@ -55,12 +56,33 @@ class DatabaseService {
   List<Barber> _barberListfromQuerySnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return Barber(
-        id: uid,
+        id: doc.documentID,
         name: doc.data['name'],
         imgUrl: doc.data['imgUrl'],
         branch: doc.data['branch'],
         dayoff: doc.data['dayoff'],
         schedule: List.from(doc.data['schedule']),
+      );
+    }).toList();
+  }
+
+    //Schedule Collection Reference
+  final CollectionReference scheduleCollection =
+      Firestore.instance.collection('schedule');
+
+  Stream<List<Schedule>> get schedules {
+    return scheduleCollection.snapshots().map(_scheduleListfromQuerySnapshot);
+  }
+
+  List<Schedule> _scheduleListfromQuerySnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return Schedule(
+        id: doc.documentID,
+        service: doc.data['service'],
+        starttime: doc.data['starttime'],
+        barberid: doc.data['barberid'],
+        customerid: doc.data['customerid'],
+        shopid: doc.data['shopid'],
       );
     }).toList();
   }

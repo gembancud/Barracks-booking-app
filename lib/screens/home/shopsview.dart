@@ -18,8 +18,9 @@ class ShopView extends StatelessWidget {
 Widget _buildTransformerPageView(BuildContext context) {
   final shops = Provider.of<List<Shop>>(context);
   return TransformerPageView(
-    loop: false,
+    loop: true,
     viewportFraction: 0.8,
+    itemCount: shops.length,
     transformer:
         new PageTransformerBuilder(builder: (Widget child, TransformInfo info) {
       return new Padding(
@@ -31,23 +32,23 @@ Widget _buildTransformerPageView(BuildContext context) {
           child: new Stack(
             fit: StackFit.expand,
             children: <Widget>[
-              new ParallaxImage.asset(
+              new ParallaxImage.network(
                 // images[info.index],
                 shops[info.index].imgUrl,
                 position: info.position,
               ),
-              new DecoratedBox(
-                decoration: new BoxDecoration(
-                  gradient: new LinearGradient(
-                    begin: FractionalOffset.bottomCenter,
-                    end: FractionalOffset.topCenter,
-                    colors: [
-                      const Color(0xFF000000),
-                      const Color(0x33FFC0CB),
-                    ],
-                  ),
-                ),
-              ),
+              // new DecoratedBox(
+              //   decoration: new BoxDecoration(
+              //     gradient: new LinearGradient(
+              //       begin: FractionalOffset.bottomCenter,
+              //       end: FractionalOffset.topCenter,
+              //       colors: [
+              //         const Color(0xFF000000),
+              //         const Color(0x33FFC0CB),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               new Positioned(
                 child: new Column(
                   mainAxisSize: MainAxisSize.min,
@@ -66,7 +67,7 @@ Widget _buildTransformerPageView(BuildContext context) {
                       height: 8.0,
                     ),
                     new ParallaxContainer(
-                      child: new Text('Book Here',
+                      child: new Text(shops[info.index].id,
                           style: new TextStyle(fontSize: 18.0)),
                       position: info.position,
                       translationFactor: 200.0,
@@ -82,6 +83,5 @@ Widget _buildTransformerPageView(BuildContext context) {
         ),
       );
     }),
-    itemCount: shops.length,
   );
 }
