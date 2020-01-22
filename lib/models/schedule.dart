@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:flutter/foundation.dart';
 
 enum Service { Basic, Bootcamp, Premium, Razor, Dye }
@@ -9,7 +11,6 @@ class Schedule {
   final String barberid;
   final String customerid;
   final String shopid;
-  Duration duration;
 
   Schedule({
     @required this.id,
@@ -18,8 +19,22 @@ class Schedule {
     @required this.barberid,
     @required this.customerid,
     @required this.shopid,
-    this.duration = const Duration(minutes: 30),
   });
 
   DateTime get endtime => starttime.add(duration);
+
+  Duration get duration {
+    switch (service) {
+      case Service.Basic:
+        return Duration(minutes: 30);
+      case Service.Bootcamp:
+        return Duration(minutes: 30);
+      case Service.Premium:
+        return Duration(minutes: 30);
+      case Service.Razor:
+        return Duration(minutes: 30);
+      case Service.Dye:
+        return Duration(minutes: 30);
+    }
+  }
 }

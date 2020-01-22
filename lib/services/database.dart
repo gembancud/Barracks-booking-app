@@ -12,9 +12,10 @@ class DatabaseService {
       Firestore.instance.collection('customer');
 
   Future updateCustomerData(
-      String name, String phonenumber, int absences) async {
+      String name, String email, String phonenumber, int absences) async {
     return await customerCollection.document(uid).setData({
       'name': name,
+      'email': email,
       'phonenumber': phonenumber,
       'absences': absences,
     });
@@ -66,7 +67,7 @@ class DatabaseService {
     }).toList();
   }
 
-    //Schedule Collection Reference
+  //Schedule Collection Reference
   final CollectionReference scheduleCollection =
       Firestore.instance.collection('schedule');
 

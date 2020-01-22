@@ -18,13 +18,13 @@ class ShopView extends StatelessWidget {
 Widget _buildTransformerPageView(BuildContext context) {
   final shops = Provider.of<List<Shop>>(context);
   return TransformerPageView(
-    loop: true,
+    loop: false,
     viewportFraction: 0.8,
     itemCount: shops.length,
     transformer:
         new PageTransformerBuilder(builder: (Widget child, TransformInfo info) {
       return new Padding(
-        padding: new EdgeInsets.all(10.0),
+        padding: new EdgeInsets.all(20.0),
         child: new Material(
           elevation: 4.0,
           textStyle: new TextStyle(color: Colors.white),

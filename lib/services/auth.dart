@@ -10,6 +10,7 @@ class AuthService {
     if (user == null) return null;
     return Customer(
       uid: user.uid,
+      email: user.email,
       name: user.displayName,
       phonenumber: user.phoneNumber,
     );
@@ -54,7 +55,7 @@ class AuthService {
 
       //create a document in firestore using the user with the uid
       await DatabaseService(uid: user.uid)
-          .updateCustomerData('defaultname', '0', 0);
+          .updateCustomerData('defaultname', 'email', '0', 0);
 
       return _customerFromFirebase(user);
     } catch (e) {
