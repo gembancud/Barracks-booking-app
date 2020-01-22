@@ -23,6 +23,7 @@ class _LoginPageState extends State<LoginPage>
   final FocusNode myFocusNodePassword = FocusNode();
   final FocusNode myFocusNodeEmail = FocusNode();
   final FocusNode myFocusNodeName = FocusNode();
+  final FocusNode myFocusNodePhone = FocusNode();
 
   TextEditingController loginEmailController = new TextEditingController();
   TextEditingController loginPasswordController = new TextEditingController();
@@ -33,6 +34,7 @@ class _LoginPageState extends State<LoginPage>
 
   TextEditingController signupEmailController = new TextEditingController();
   TextEditingController signupNameController = new TextEditingController();
+  TextEditingController signupPhoneController = new TextEditingController();
   TextEditingController signupPasswordController = new TextEditingController();
   TextEditingController signupConfirmPasswordController =
       new TextEditingController();
@@ -43,8 +45,8 @@ class _LoginPageState extends State<LoginPage>
   Color right = Colors.white;
 
   final AuthService _auth = AuthService();
-  final _signinformKey = GlobalKey<FormState>();
-  final _signupformKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _signinformKey = new GlobalKey<FormState>();
+  final GlobalKey<FormState> _signupformKey = new GlobalKey<FormState>();
 
   String _signinemail = '';
   String _signinpassword = '';
@@ -485,10 +487,10 @@ class _LoginPageState extends State<LoginPage>
   }
 
   Widget _buildSignUp(BuildContext context) {
-    return Form(
-      key: _signupformKey,
-      child: Container(
-        padding: EdgeInsets.only(top: 23.0),
+    return Container(
+      padding: EdgeInsets.only(top: 23.0),
+      child: Form(
+        key: _signupformKey,
         child: Column(
           children: <Widget>[
             Stack(
@@ -508,7 +510,7 @@ class _LoginPageState extends State<LoginPage>
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.only(
-                              top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                              top: 10.0, bottom: 10.0, left: 12.5, right: 12.5),
                           child: TextFormField(
                             onChanged: (text) {
                               setState(() {
@@ -543,7 +545,7 @@ class _LoginPageState extends State<LoginPage>
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                              top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                              top: 10.0, bottom: 10.0, left: 12.5, right: 12.5),
                           child: TextFormField(
                             onChanged: (text) {
                               setState(() {
@@ -577,16 +579,16 @@ class _LoginPageState extends State<LoginPage>
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                              top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                              top: 10.0, bottom: 10.0, left: 12.5, right: 12.5),
                           child: TextFormField(
                             onChanged: (text) {
                               setState(() {
                                 _signupphone = text;
                               });
                             },
-                            focusNode: myFocusNodeEmail,
-                            controller: signupEmailController,
-                            keyboardType: TextInputType.emailAddress,
+                            focusNode: myFocusNodePhone,
+                            controller: signupPhoneController,
+                            keyboardType: TextInputType.phone,
                             style: TextStyle(
                                 fontFamily: "WorkSansSemiBold",
                                 fontSize: 16.0,
@@ -611,7 +613,7 @@ class _LoginPageState extends State<LoginPage>
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                              top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                              top: 10.0, bottom: 10.0, left: 12.5, right: 12.5),
                           child: TextFormField(
                             onChanged: (text) {
                               setState(() {
@@ -655,7 +657,7 @@ class _LoginPageState extends State<LoginPage>
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                              top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                              top: 10.0, bottom: 10.0, left: 12.5, right: 12.5),
                           child: TextFormField(
                             onChanged: (text) {
                               setState(() {
@@ -744,7 +746,7 @@ class _LoginPageState extends State<LoginPage>
                     ),
                     // onPressed: () => showInSnackBar("SignUp button pressed")),
                     onPressed: () async {
-                      if (_signinformKey.currentState.validate()) {
+                      if (_signupformKey.currentState.validate()) {
                         dynamic result = await _auth.signupemail(
                           _signupname,
                           _signupphone,
