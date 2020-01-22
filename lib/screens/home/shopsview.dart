@@ -32,7 +32,7 @@ Widget _buildTransformerPageView(BuildContext context) {
           child: new Stack(
             fit: StackFit.expand,
             children: <Widget>[
-              new ParallaxImage.network(
+              new ParallaxImage.cachednetwork(
                 // images[info.index],
                 shops[info.index].imgUrl,
                 position: info.position,

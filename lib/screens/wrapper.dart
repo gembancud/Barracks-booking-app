@@ -8,7 +8,11 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final customer = Provider.of<Customer>(context);
-
+    if (customer != null) {
+      print('Customer details:');
+      print(customer.name);
+      print(customer.email);
+    }
     if (customer == null) {
       return Authenticate();
     } else {

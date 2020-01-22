@@ -1,3 +1,4 @@
+import 'package:barracks_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hidden_drawer_menu/hidden_drawer/hidden_drawer_menu.dart';
 
@@ -16,6 +17,8 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
         AnimationController(vsync: this, duration: Duration(milliseconds: 300));
     super.initState();
   }
+
+  final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +60,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
                               .setSelectedMenuPosition(0);
                         },
                         child: Text(
-                          "Menu 1",
+                          "Shops",
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
@@ -74,7 +77,7 @@ class _MenuState extends State<Menu> with TickerProviderStateMixin {
                                 .setSelectedMenuPosition(1);
                           },
                           child: Text(
-                            "Menu 2",
+                            "Settings",
                             style: TextStyle(color: Colors.white),
                           )),
                     )

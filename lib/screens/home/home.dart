@@ -11,6 +11,7 @@ import 'package:barracks_app/services/database.dart';
 import 'package:hidden_drawer_menu/hidden_drawer/hidden_drawer_menu.dart';
 import 'package:provider/provider.dart';
 import 'package:transformer_page_view/transformer_page_view.dart';
+import 'package:barracks_app/screens/home/settings.dart';
 
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
@@ -38,7 +39,7 @@ class Home extends StatelessWidget {
               screenCurrent = ShopView();
               break;
             case 1:
-              screenCurrent = Loading();
+              screenCurrent = SettingsScreen();
               break;
           }
 

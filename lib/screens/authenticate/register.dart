@@ -76,24 +76,24 @@ class _RegisterState extends State<Register> {
                       RaisedButton(
                         color: Colors.grey[40],
                         child: Text('Register'),
-                        onPressed: () async {
-                          if (_formKey.currentState.validate()) {
-                            setState(() {
-                              _loading = true;
-                            });
-                            dynamic result =
-                                await _auth.signupemail(_email, _password);
-                            if (result == null) {
-                              setState(() {
-                                _loading = false;
-                                _error = 'Please supply a valid email';
-                              });
-                            } else {
-                              print('register successful!');
-                              Navigator.pop(context);
-                            }
-                          }
-                        },
+                        // onPressed: () async {
+                        //   if (_formKey.currentState.validate()) {
+                        //     setState(() {
+                        //       _loading = true;
+                        //     });
+                        // dynamic result =
+                        //     await _auth.signupemail(_email, _password);
+                        //     if (result == null) {
+                        //       setState(() {
+                        //         _loading = false;
+                        //         _error = 'Please supply a valid email';
+                        //       });
+                        //     } else {
+                        //       print('register successful!');
+                        //       Navigator.pop(context);
+                        //     }
+                        //   }
+                        // },
                       ),
                       SizedBox(
                         height: 12,

@@ -47,7 +47,8 @@ class AuthService {
   }
 
   //Email Sign up
-  Future signupemail(String email, String password) async {
+  Future signupemail(
+      String name, String phone, String email, String password) async {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -55,7 +56,7 @@ class AuthService {
 
       //create a document in firestore using the user with the uid
       await DatabaseService(uid: user.uid)
-          .updateCustomerData('defaultname', 'email', '0', 0);
+          .updateCustomerData(name, phone, email, 0);
 
       return _customerFromFirebase(user);
     } catch (e) {
