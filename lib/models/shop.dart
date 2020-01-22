@@ -5,8 +5,8 @@ class Shop {
   final String id;
   final String name;
   final String imgUrl;
-  final double lat;
-  final double long;
+  final String lat;
+  final String long;
   final List<String> barbers;
 
   const Shop({

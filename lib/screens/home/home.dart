@@ -18,7 +18,9 @@ class Home extends StatelessWidget {
         appBar: AppBar(
           title: Text('Barracks'),
         ),
-        body: ShopsView(),
+        body: Center(
+          child: ShopView(),
+        ),
       ),
     );
   }
