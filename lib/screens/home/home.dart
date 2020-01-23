@@ -44,13 +44,13 @@ class Home extends StatelessWidget {
           }
 
           return Scaffold(
-            appBar: AppBar(
-              leading: IconButton(
-                  icon: Icon(Icons.menu),
-                  onPressed: () {
-                    controller.toggle();
-                  }),
-            ),
+            // appBar: AppBar(
+            //   leading: IconButton(
+            //       icon: Icon(Icons.menu),
+            //       onPressed: () {
+            //         controller.toggle();
+            //       }),
+            // ),
             body: screenCurrent,
           );
         },
