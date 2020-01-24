@@ -1,4 +1,6 @@
 import 'package:barracks_app/models/shop.dart';
+import 'package:barracks_app/screens/home/bookingmenu.dart';
+import 'package:barracks_app/screens/home/bookingmenunotifier.dart';
 import 'package:barracks_app/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,30 +35,19 @@ Widget _buildTransformerPageView(BuildContext context) {
             fit: StackFit.expand,
             children: <Widget>[
               new ParallaxImage.cachednetwork(
-                // images[info.index],
                 shops[info.index].imgUrl,
                 position: info.position,
               ),
-              // new DecoratedBox(
-              //   decoration: new BoxDecoration(
-              //     gradient: new LinearGradient(
-              //       begin: FractionalOffset.bottomCenter,
-              //       end: FractionalOffset.topCenter,
-              //       colors: [
-              //         const Color(0xFF000000),
-              //         const Color(0x33FFC0CB),
-              //       ],
-              //     ),
-              //   ),
-              // ),
               new Positioned(
+                left: 10.0,
+                right: 10.0,
+                bottom: 10.0,
                 child: new Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     new ParallaxContainer(
                       child: new Text(
-                        // text0[info.index],
                         shops[info.index].name,
                         style: new TextStyle(fontSize: 15.0),
                       ),
@@ -67,17 +58,26 @@ Widget _buildTransformerPageView(BuildContext context) {
                       height: 8.0,
                     ),
                     new ParallaxContainer(
-                      child: new Text(shops[info.index].id,
-                          style: new TextStyle(fontSize: 18.0)),
+                      child: new FlatButton(
+                        child: Text(
+                          'Book Here',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: () {
+                          Provider.of<BookingMenuNotifier>(context,
+                                  listen: false)
+                              .togglemenu();
+                        },
+                      ),
                       position: info.position,
                       translationFactor: 200.0,
                     ),
                   ],
                 ),
-                left: 10.0,
-                right: 10.0,
-                bottom: 10.0,
-              )
+              ),
+              new BookingMenu(),
             ],
           ),
         ),

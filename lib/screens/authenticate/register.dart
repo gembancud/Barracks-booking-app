@@ -74,8 +74,9 @@ class _RegisterState extends State<Register> {
                         height: 20,
                       ),
                       RaisedButton(
-                        color: Colors.grey[40],
+                        color: Colors.grey[800],
                         child: Text('Register'),
+                        onPressed: () {},
                         // onPressed: () async {
                         //   if (_formKey.currentState.validate()) {
                         //     setState(() {

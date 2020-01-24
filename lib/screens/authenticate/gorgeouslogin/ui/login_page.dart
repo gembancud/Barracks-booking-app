@@ -84,14 +84,14 @@ class _LoginPageState extends State<LoginPage>
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 75.0),
-                  child: new Image(
-                      width: 250.0,
-                      height: 191.0,
-                      fit: BoxFit.fill,
-                      image: new AssetImage('assets/img/login_logo.png')),
-                ),
+                // Padding(
+                //   padding: EdgeInsets.only(top: 75.0),
+                //   child: new Image(
+                //       width: 250.0,
+                //       height: 191.0,
+                //       fit: BoxFit.fill,
+                //       image: new AssetImage('assets/img/login_logo.png')),
+                // ),
                 Padding(
                   padding: EdgeInsets.only(top: 20.0),
                   child: _buildMenuBar(context),
@@ -166,7 +166,7 @@ class _LoginPageState extends State<LoginPage>
             fontSize: 16.0,
             fontFamily: "WorkSansSemiBold"),
       ),
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.grey[800],
       duration: Duration(seconds: 3),
     ));
   }
@@ -473,7 +473,7 @@ class _LoginPageState extends State<LoginPage>
                       ),
                       child: new Icon(
                         FontAwesomeIcons.google,
-                        color: Color(0xFF0084ff),
+                        color: Color(0xFF1aa260),
                       ),
                     ),
                   ),
