@@ -37,4 +37,18 @@ class Schedule {
         return Duration(minutes: 30);
     }
   }
+
+  bool get isStarted => DateTime.now().isAfter(starttime) ? true : false;
+
+  bool get isEnded => DateTime.now().isAfter(endtime) ? true : false;
+
+  bool get isToday {
+    final today = DateTime.now();
+    if (starttime.year == today.year &&
+        starttime.month == today.month &&
+        starttime.day == today.day)
+      return true;
+    else
+      return false;
+  }
 }

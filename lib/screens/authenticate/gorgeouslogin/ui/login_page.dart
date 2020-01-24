@@ -92,6 +92,7 @@ class _LoginPageState extends State<LoginPage>
                 //       fit: BoxFit.fill,
                 //       image: new AssetImage('assets/img/login_logo.png')),
                 // ),
+                SizedBox(height: 50),
                 Padding(
                   padding: EdgeInsets.only(top: 20.0),
                   child: _buildMenuBar(context),

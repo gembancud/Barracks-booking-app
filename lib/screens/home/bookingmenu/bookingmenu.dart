@@ -1,7 +1,14 @@
+import 'dart:js';
 import 'dart:ui';
 
+import 'package:barracks_app/models/barber.dart';
+import 'package:barracks_app/models/schedule.dart';
+import 'package:barracks_app/models/shop.dart';
+import 'package:barracks_app/screens/home/bookingmenu/bookinglist.dart';
 import 'package:barracks_app/screens/home/bookingmenu/bookingmenunotifier.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class BookingMenu extends StatefulWidget {
@@ -13,14 +20,9 @@ class _BookingMenuState extends State<BookingMenu> {
   @override
   Widget build(BuildContext context) {
     final _notifier = Provider.of<BookingMenuNotifier>(context);
+
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 200),
-      // transitionBuilder: (Widget child, Animation<double> animation) {
-      //   return ScaleTransition(
-      //     scale: animation,
-      //     child: child,
-      //   );
-      // },
       child: _notifier.isOpen
           ? Container(
               decoration: BoxDecoration(
@@ -29,11 +31,7 @@ class _BookingMenuState extends State<BookingMenu> {
               ),
               key: ValueKey(1),
               margin: EdgeInsets.symmetric(vertical: 45.0, horizontal: 20),
-              child: Container(
-                child: Center(
-                  child: Text('Book menu'),
-                ),
-              ),
+              child: BookingList(),
             )
           : Container(
               key: ValueKey(2),
