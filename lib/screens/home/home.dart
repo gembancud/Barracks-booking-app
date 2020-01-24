@@ -1,7 +1,7 @@
 import 'package:barracks_app/models/barber.dart';
 import 'package:barracks_app/models/schedule.dart';
 import 'package:barracks_app/models/shop.dart';
-import 'package:barracks_app/screens/home/bookingmenunotifier.dart';
+import 'package:barracks_app/screens/home/bookingmenu/bookingmenunotifier.dart';
 import 'package:barracks_app/screens/home/shopsview.dart';
 import 'package:barracks_app/services/auth.dart';
 import 'package:flutter/material.dart';

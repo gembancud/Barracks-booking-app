@@ -1,8 +1,10 @@
 import 'package:barracks_app/models/shop.dart';
-import 'package:barracks_app/screens/home/bookingmenu.dart';
-import 'package:barracks_app/screens/home/bookingmenunotifier.dart';
+import 'package:barracks_app/screens/home/bookingmenu/bookingmenu.dart';
+import 'package:barracks_app/screens/home/bookingmenu/bookingmenunotifier.dart';
 import 'package:barracks_app/shared/loading.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:transformer_page_view/transformer_page_view.dart';
 
@@ -34,6 +36,16 @@ Widget _buildTransformerPageView(BuildContext context) {
           child: new Stack(
             fit: StackFit.expand,
             children: <Widget>[
+              // new ParallaxContainer(
+              //   child: CachedNetworkImage(
+              //     imageUrl: shops[info.index].imgUrl,
+              //     placeholder: (context, url) => SpinKitDoubleBounce(),
+              //     errorWidget: (context, url, error) => Icon(Icons.error),
+              //     fit: BoxFit.cover,
+              //     alignment: FractionalOffset(0.5 + info.position * 0.3, 0.5),
+              //   ),
+              //   position: info.position,
+              // ),
               new ParallaxImage.cachednetwork(
                 shops[info.index].imgUrl,
                 position: info.position,
@@ -58,7 +70,7 @@ Widget _buildTransformerPageView(BuildContext context) {
                       height: 8.0,
                     ),
                     new ParallaxContainer(
-                      child: new FlatButton(
+                      child: new RaisedButton(
                         child: Text(
                           'Book Here',
                           style: TextStyle(
@@ -77,7 +89,10 @@ Widget _buildTransformerPageView(BuildContext context) {
                   ],
                 ),
               ),
-              new BookingMenu(),
+              ParallaxContainer(
+                child: new BookingMenu(),
+                position: info.position,
+              ),
             ],
           ),
         ),
