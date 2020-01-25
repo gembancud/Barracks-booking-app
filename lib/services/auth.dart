@@ -9,7 +9,7 @@ class AuthService {
   Customer _customerFromFirebase(FirebaseUser user) {
     if (user == null) return null;
     return Customer(
-      uid: user.uid,
+      id: user.uid,
       email: user.email,
       name: user.displayName,
       phonenumber: user.phoneNumber,

@@ -11,6 +11,7 @@ class Schedule {
   final String barberid;
   final String customerid;
   final String shopid;
+  final DateTime bookdate;
 
   Schedule({
     @required this.id,
@@ -19,6 +20,7 @@ class Schedule {
     @required this.barberid,
     @required this.customerid,
     @required this.shopid,
+    @required this.bookdate,
   });
 
   DateTime get endtime => starttime.add(duration);

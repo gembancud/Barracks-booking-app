@@ -1,7 +1,9 @@
 import 'package:barracks_app/models/barber.dart';
+import 'package:barracks_app/models/customer.dart';
 import 'package:barracks_app/models/schedule.dart';
 import 'package:barracks_app/models/shop.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:data_connection_checker/data_connection_checker.dart';
 
 class DatabaseService {
   final String uid;
@@ -18,6 +20,7 @@ class DatabaseService {
       'email': email,
       'phonenumber': phonenumber,
       'absences': absences,
+      'bookings': FieldValue.arrayUnion([])
     });
   }
 
@@ -81,10 +84,42 @@ class DatabaseService {
         id: doc.documentID,
         service: doc.data['service'],
         starttime: doc.data['starttime'],
+        bookdate: doc.data['bookdate'],
         barberid: doc.data['barberid'],
         customerid: doc.data['customerid'],
         shopid: doc.data['shopid'],
       );
     }).toList();
+  }
+
+  Future BookSchedule(
+      Customer customer, Barber barber, Shop shop, DateTime starttime) async {
+    try {
+      DocumentReference sched = await scheduleCollection.add({
+        'service': 0,
+        'starttime': starttime,
+        'bookdate': DateTime.now(),
+        'customerid': customer.id,
+        'barberid': barber.id,
+        'shopid': shop.id,
+      });
+      scheduleCollection
+          .document(sched.documentID)
+          .updateData({'id': sched.documentID});
+
+      customer.bookings.add(sched.documentID);
+      customerCollection
+          .document(customer.id)
+          .updateData({'bookings': FieldValue.arrayUnion(customer.bookings)});
+
+      barber.schedule.add(sched.documentID);
+      barberCollection
+          .document(barber.id)
+          .updateData({'schedule': FieldValue.arrayUnion(barber.schedule)});
+
+      return sched.documentID;
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

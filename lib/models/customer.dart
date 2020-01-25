@@ -2,16 +2,15 @@ import 'package:barracks_app/models/schedule.dart';
 import 'package:flutter/widgets.dart';
 
 class Customer {
-  final String uid;
+  final String id;
   final String name;
   final String email;
   final String phonenumber;
   final int absences;
-  List<Schedule> closedbookings;
-  List<Schedule> openbookings;
+  List<String> bookings = [];
 
   Customer({
-    @required this.uid,
+    @required this.id,
     @required this.name,
     @required this.email,
     @required this.phonenumber,
