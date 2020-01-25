@@ -51,7 +51,7 @@ class DatabaseService {
       Firestore.instance.collection('barbers');
 
   Stream<List<Barber>> get barbers {
-    return shopCollection.snapshots().map(_barberListfromQuerySnapshot);
+    return barberCollection.snapshots().map(_barberListfromQuerySnapshot);
   }
 
   List<Barber> _barberListfromQuerySnapshot(QuerySnapshot snapshot) {

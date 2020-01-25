@@ -1,3 +1,4 @@
+import 'package:barracks_app/models/barber.dart';
 import 'package:barracks_app/models/shop.dart';
 import 'package:barracks_app/screens/home/bookingmenu/bookingmenu.dart';
 import 'package:barracks_app/screens/home/bookingmenu/bookingmenunotifier.dart';
@@ -8,7 +9,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:transformer_page_view/transformer_page_view.dart';
 
-class ShopView extends StatelessWidget {
+class ShopView extends StatefulWidget {
+  @override
+  _ShopViewState createState() => _ShopViewState();
+}
+
+class _ShopViewState extends State<ShopView> {
   @override
   Widget build(BuildContext context) {
     final shops = Provider.of<List<Shop>>(context);

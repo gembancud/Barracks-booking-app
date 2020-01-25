@@ -1,14 +1,6 @@
-import 'dart:js';
-import 'dart:ui';
-
-import 'package:barracks_app/models/barber.dart';
-import 'package:barracks_app/models/schedule.dart';
-import 'package:barracks_app/models/shop.dart';
 import 'package:barracks_app/screens/home/bookingmenu/bookinglist.dart';
 import 'package:barracks_app/screens/home/bookingmenu/bookingmenunotifier.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class BookingMenu extends StatefulWidget {
