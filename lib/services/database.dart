@@ -74,8 +74,23 @@ class DatabaseService {
   final CollectionReference scheduleCollection =
       Firestore.instance.collection('schedule');
 
-  Stream<List<Schedule>> get schedules {
+// Returns all past and current schedules from the database
+// primarily for the purpose of the admin app
+  Stream<List<Schedule>> get adminschedules {
     return scheduleCollection.snapshots().map(_scheduleListfromQuerySnapshot);
+  }
+
+// Returns all current schedules from the database
+// Primarily for the purpose of the cusotmer booking app
+  Stream<List<Schedule>> get userschedules {
+    DateTime now = new DateTime.now();
+    return scheduleCollection
+        .where(
+          'starttime',
+          isGreaterThanOrEqualTo: new DateTime(now.year, now.month, now.day),
+        )
+        .snapshots()
+        .map(_scheduleListfromQuerySnapshot);
   }
 
   List<Schedule> _scheduleListfromQuerySnapshot(QuerySnapshot snapshot) {
