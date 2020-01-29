@@ -5,7 +5,8 @@ class BarracksAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      floating: true,
+      floating: false,
+      // pinned: true,
       elevation: 10.0,
       forceElevated: true,
       backgroundColor: Colors.black,

@@ -24,13 +24,54 @@ class BarracksMenu extends StatelessWidget {
         child: CustomScrollView(
           slivers: <Widget>[
             BarracksAppbar(),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 10,
+              ),
+            ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (ctx, idx) {
-                  return StickyHeader(
-                    header: Text(_shops[idx].name),
-                    content: Container(
-                      child: (Text(_shops[idx].id)),
+                  return StickyHeaderBuilder(
+                    overlapHeaders: true,
+                    builder: (BuildContext context, double stuckAmount) {
+                      stuckAmount = 1.0 - stuckAmount.clamp(0.0, 1.0);
+                      return new Container(
+                        height: 70.0 + 10 * stuckAmount,
+                        color: Colors.black.withOpacity(stuckAmount),
+                        padding: new EdgeInsets.only(
+                            bottom: 10, top: stuckAmount * 30),
+                        alignment: Alignment.center,
+                        child: Container(
+                          child: Text(
+                            _shops[idx].name,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 20),
+                          ),
+                        ),
+                      );
+                    },
+                    content: Column(
+                      children: <Widget>[
+                        Card(
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                color: Colors.blue,
+                                width: double.infinity,
+                                height: 120,
+                              ),
+                              Container(
+                                color: Colors.yellow,
+                                width: double.infinity,
+                                child: Text(_shops[idx].id),
+                                height: 360,
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 40),
+                      ],
                     ),
                   );
                 },
