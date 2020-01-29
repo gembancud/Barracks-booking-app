@@ -44,6 +44,7 @@ class DatabaseService {
         imgUrl: doc.data['imgUrl'],
         lat: doc.data['lat'],
         long: doc.data['long'],
+        phonenumber: doc.data['phonenumber'],
         barbers: List.from(doc.data['barbers']),
       );
     }).toList();

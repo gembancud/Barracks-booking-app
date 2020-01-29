@@ -7,6 +7,7 @@ class Shop {
   final String imgUrl;
   final String lat;
   final String long;
+  final String phonenumber;
   final List<String> barbers;
 
   const Shop({
@@ -15,6 +16,7 @@ class Shop {
     @required this.imgUrl,
     @required this.lat,
     @required this.long,
+    @required this.phonenumber,
     @required this.barbers,
   });
 }
