@@ -38,6 +38,7 @@ dependencies:
   bottom_navy_bar: ^5.3.2
   sticky_headers: ^0.1.8+1
   url_launcher: ^5.4.1
+  map_launcher: ^0.4.2
 
 dev_dependencies:
   flutter_test:

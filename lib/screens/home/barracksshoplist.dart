@@ -32,11 +32,15 @@ class BarracksShopsList extends StatelessWidget {
                                 color:
                                     Colors.black.withOpacity(1 - stuckAmount))),
                       ),
-                      Center(
-                        child: Text(_shops[idx].name,
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white.withOpacity(stuckAmount))),
+                      Hero(
+                        tag: 'ShopHeaderTag',
+                        child: Center(
+                          child: Text(_shops[idx].name,
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color:
+                                      Colors.white.withOpacity(stuckAmount))),
+                        ),
                       )
                     ],
                   ),
@@ -52,25 +56,30 @@ class BarracksShopsList extends StatelessWidget {
                       SizedBox(height: 70),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: CachedNetworkImage(
-                          imageUrl: _shops[idx].imgUrl,
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
-                          fit: BoxFit.cover,
+                        child: Hero(
+                          tag: 'ShopImageTag',
+                          child: CachedNetworkImage(
+                            imageUrl: _shops[idx].imgUrl,
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                       ButtonBar(
                         alignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           OutlineButton(
+                            splashColor: Colors.grey[500],
                             child: const Text('Book Here',
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 14)),
                             onPressed: () {},
                           ),
                           OutlineButton(
+                            splashColor: Colors.grey[500],
                             child: const Text(
                               'Get Directions',
                               style:
@@ -79,6 +88,7 @@ class BarracksShopsList extends StatelessWidget {
                             onPressed: () {},
                           ),
                           OutlineButton(
+                            splashColor: Colors.grey[500],
                             child: const Text(
                               'Contact Us',
                               style:
