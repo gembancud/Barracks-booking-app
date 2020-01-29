@@ -31,6 +31,10 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Barracks App',
+        theme: ThemeData(
+          primaryColor: Colors.black,
+          accentColor: Colors.grey,
+        ),
         home: BarracksWrapper(),
       ),
     );
