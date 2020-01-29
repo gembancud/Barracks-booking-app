@@ -13,19 +13,22 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      StreamProvider<List<Shop>>.value(
-        value: DatabaseService().shops,
-      ),
-      StreamProvider<List<Barber>>.value(
-        value: DatabaseService().barbers,
-      ),
-      StreamProvider<List<Schedule>>.value(
-        value: DatabaseService().userschedules,
-      ),
-      ChangeNotifierProvider<BookingMenuNotifier>(
-        create: (ctx) => BookingMenuNotifier(),
-      )
-    ], child: BarracksMenu());
+    return MultiProvider(
+      providers: [
+        StreamProvider<List<Shop>>.value(
+          value: DatabaseService().shops,
+        ),
+        StreamProvider<List<Barber>>.value(
+          value: DatabaseService().barbers,
+        ),
+        StreamProvider<List<Schedule>>.value(
+          value: DatabaseService().userschedules,
+        ),
+        // ChangeNotifierProvider<BookingMenuNotifier>(
+        //   create: (ctx) => BookingMenuNotifier(),
+        // )
+      ],
+      child: BarracksMenu(),
+    );
   }
 }
