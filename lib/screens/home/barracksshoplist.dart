@@ -20,13 +20,24 @@ class BarracksShopsList extends StatelessWidget {
                 color: Colors.black.withOpacity(stuckAmount),
                 padding: new EdgeInsets.only(bottom: 10, top: stuckAmount * 30),
                 alignment: Alignment.center,
-                child: Container(
-                  child: Text(
-                    _shops[idx].name,
-                    style: TextStyle(
-                      color: Colors.black.withOpacity(1 - stuckAmount),
-                      fontSize: 20,
-                    ),
+                child: Center(
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: <Widget>[
+                      Center(
+                        child: Text(_shops[idx].name,
+                            style: TextStyle(
+                                fontSize: 20,
+                                color:
+                                    Colors.black.withOpacity(1 - stuckAmount))),
+                      ),
+                      Center(
+                        child: Text(_shops[idx].name,
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white.withOpacity(stuckAmount))),
+                      )
+                    ],
                   ),
                 ),
               );
@@ -34,29 +45,44 @@ class BarracksShopsList extends StatelessWidget {
             content: Column(
               children: <Widget>[
                 Card(
+                  elevation: 4.0,
                   child: Column(
                     children: <Widget>[
                       SizedBox(height: 70),
-                      CachedNetworkImage(
-                        imageUrl: _shops[idx].imgUrl,
-                        placeholder: (context, url) =>
-                            CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                        fit: BoxFit.cover,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CachedNetworkImage(
+                          imageUrl: _shops[idx].imgUrl,
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       ButtonBar(
                         alignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          FlatButton(
-                            child: Text('Book Here'),
+                          OutlineButton(
+                            child: const Text('Book Here',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 14)),
                             onPressed: () {},
                           ),
-                          FlatButton(
-                            child: Text('Get Directions'),
+                          OutlineButton(
+                            child: const Text(
+                              'Get Directions',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 14),
+                            ),
                             onPressed: () {},
                           ),
-                          FlatButton(
-                            child: Text('Contact Us'),
+                          OutlineButton(
+                            child: const Text(
+                              'Contact Us',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 14),
+                            ),
                             onPressed: () {},
                           ),
                         ],

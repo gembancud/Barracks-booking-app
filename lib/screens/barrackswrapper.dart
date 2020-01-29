@@ -4,7 +4,7 @@ import 'package:barracks_app/screens/home/barracksmenu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Wrapper extends StatelessWidget {
+class BarracksWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final customer = Provider.of<Customer>(context);
