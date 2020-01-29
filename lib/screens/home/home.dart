@@ -9,26 +9,8 @@ import 'package:barracks_app/services/database.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
-  final AuthService _auth = AuthService();
-
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        StreamProvider<List<Shop>>.value(
-          value: DatabaseService().shops,
-        ),
-        StreamProvider<List<Barber>>.value(
-          value: DatabaseService().barbers,
-        ),
-        StreamProvider<List<Schedule>>.value(
-          value: DatabaseService().userschedules,
-        ),
-        // ChangeNotifierProvider<BookingMenuNotifier>(
-        //   create: (ctx) => BookingMenuNotifier(),
-        // )
-      ],
-      child: BarracksMenu(),
-    );
+    return BarracksMenu();
   }
 }

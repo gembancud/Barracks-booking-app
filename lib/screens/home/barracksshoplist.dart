@@ -1,6 +1,5 @@
-import 'dart:js';
-
 import 'package:barracks_app/models/shop.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sticky_headers/sticky_headers.dart';
@@ -24,7 +23,10 @@ class BarracksShopsList extends StatelessWidget {
                 child: Container(
                   child: Text(
                     _shops[idx].name,
-                    style: const TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(
+                      color: Colors.black.withOpacity(1 - stuckAmount),
+                      fontSize: 20,
+                    ),
                   ),
                 ),
               );
@@ -34,17 +36,31 @@ class BarracksShopsList extends StatelessWidget {
                 Card(
                   child: Column(
                     children: <Widget>[
-                      Container(
-                        color: Colors.blue,
-                        width: double.infinity,
-                        height: 120,
+                      SizedBox(height: 70),
+                      CachedNetworkImage(
+                        imageUrl: _shops[idx].imgUrl,
+                        placeholder: (context, url) =>
+                            CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        fit: BoxFit.cover,
                       ),
-                      Container(
-                        color: Colors.yellow,
-                        width: double.infinity,
-                        child: Text(_shops[idx].id),
-                        height: 360,
-                      )
+                      ButtonBar(
+                        alignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          FlatButton(
+                            child: Text('Book Here'),
+                            onPressed: () {},
+                          ),
+                          FlatButton(
+                            child: Text('Get Directions'),
+                            onPressed: () {},
+                          ),
+                          FlatButton(
+                            child: Text('Contact Us'),
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
