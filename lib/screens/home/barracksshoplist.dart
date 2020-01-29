@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sticky_headers/sticky_headers.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BarracksShopsList extends StatelessWidget {
   @override
@@ -83,7 +84,14 @@ class BarracksShopsList extends StatelessWidget {
                               style:
                                   TextStyle(color: Colors.black, fontSize: 14),
                             ),
-                            onPressed: () {},
+                            onPressed: () async {
+                              try {
+                                print('calling ${_shops[idx].phonenumber}');
+                                launch('tel://${_shops[idx].phonenumber}');
+                              } catch (e) {
+                                print(e.toString());
+                              }
+                            },
                           ),
                         ],
                       ),
