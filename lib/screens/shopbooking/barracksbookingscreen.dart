@@ -13,8 +13,14 @@ class BarracksBookingScreen extends StatelessWidget {
         child: CustomScrollView(
           slivers: <Widget>[
             SliverPersistentHeader(
+              pinned: true,
               delegate: BookingHeaderDelegate(
-                  minExtent: 150, maxExtent: 250, shopid: _shopId),
+                  minExtent: 80, maxExtent: 250, shopid: _shopId),
+            ),
+            SliverFillRemaining(
+              child: Center(
+                child: Text('bilat'),
+              ),
             )
           ],
         ),

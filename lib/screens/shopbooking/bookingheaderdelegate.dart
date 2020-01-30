@@ -2,6 +2,7 @@ import 'package:barracks_app/models/shop.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class BookingHeaderDelegate implements SliverPersistentHeaderDelegate {
@@ -32,6 +33,35 @@ class BookingHeaderDelegate implements SliverPersistentHeaderDelegate {
             width: double.infinity,
           ),
         ),
+        Positioned(
+          right: 16.0,
+          bottom: 16.0,
+          child: Hero(
+            tag: 'ShopHeaderTag' + shopid,
+            child: Container(
+              decoration: BoxDecoration(color: Colors.black54),
+              child: Text(_shop.name,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  )),
+            ),
+          ),
+        ),
+        Positioned(
+          left: 16.0,
+          bottom: 10.0,
+          child: IconButton(
+            icon: Icon(
+              FontAwesomeIcons.arrowLeft,
+              color: Colors.white,
+              size: 30.0,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        )
       ],
     );
   }
