@@ -52,7 +52,7 @@ class _BarracksShopsListState extends State<BarracksShopsList> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: Hero(
-                            tag: 'ShopImageTag',
+                            tag: 'ShopImageTag' + _shops[idx].name,
                             child: CachedNetworkImage(
                               fadeInCurve: Curves.easeInCubic,
                               fadeOutCurve: Curves.easeInCubic,
@@ -178,7 +178,7 @@ class _BarracksShopsListState extends State<BarracksShopsList> {
                       color: Colors.black.withOpacity(1 - stuckAmount))),
             ),
             Hero(
-              tag: 'ShopHeaderTag',
+              tag: 'ShopHeaderTag' + _shops[idx].name,
               child: Center(
                 child: Text(_shops[idx].name,
                     style: TextStyle(

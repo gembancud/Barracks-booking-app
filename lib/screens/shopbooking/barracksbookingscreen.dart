@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:barracks_app/screens/shopbooking/bookingheaderdelegate.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +9,7 @@ class BarracksBookingScreen extends StatelessWidget {
     final _shopId = ModalRoute.of(context).settings.arguments as String;
     return Scaffold(
       body: Container(
+        decoration: BoxDecoration(color: Colors.white),
         child: CustomScrollView(
           slivers: <Widget>[
             SliverPersistentHeader(

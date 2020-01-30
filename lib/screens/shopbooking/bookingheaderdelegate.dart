@@ -16,20 +16,15 @@ class BookingHeaderDelegate implements SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     final _shops = Provider.of<List<Shop>>(context);
-    final Shop _shop = _shops.where((shop) {
+    final Shop _shop = _shops.firstWhere((shop) {
       return shop.id == shopid;
     }) as Shop;
     return Stack(
       fit: StackFit.expand,
       children: <Widget>[
         Hero(
-          tag: 'ShopImageTag',
+          tag: 'ShopImageTag' + shopid,
           child: CachedNetworkImage(
-            fadeInCurve: Curves.easeInCubic,
-            fadeOutCurve: Curves.easeInCubic,
-            fadeInDuration: const Duration(milliseconds: 150),
-            placeholderFadeInDuration: const Duration(milliseconds: 150),
-            fadeOutDuration: const Duration(milliseconds: 150),
             imageUrl: _shop.imgUrl,
             placeholder: (context, url) => CircularProgressIndicator(),
             errorWidget: (context, url, error) => Icon(Icons.error),
