@@ -1,7 +1,8 @@
+import 'dart:js';
+
 import 'package:barracks_app/models/shop.dart';
-import 'package:barracks_app/shared/loading.dart';
+import 'package:barracks_app/screens/home/barracksbookingscreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:map_launcher/map_launcher.dart';
@@ -9,145 +10,156 @@ import 'package:provider/provider.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class BarracksShopsList extends StatelessWidget {
+class BarracksShopsList extends StatefulWidget {
+  @override
+  _BarracksShopsListState createState() => _BarracksShopsListState();
+}
+
+class _BarracksShopsListState extends State<BarracksShopsList> {
+  void _selectShop(BuildContext ctx, String shopid) {
+    Navigator.of(ctx).pushNamed(
+      BarracksBookingScreen.routeName,
+      arguments: shopid,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final _shops = Provider.of<List<Shop>>(context);
-    if (_shops == null)
-      return Loading();
-    else
-      return SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (ctx, idx) {
-            return StickyHeaderBuilder(
-              overlapHeaders: true,
-              builder: (BuildContext context, double stuckAmount) {
-                stuckAmount = 1.0 - stuckAmount.clamp(0.0, 1.0);
-                return _buildBarracksStickyHeader(stuckAmount, _shops, idx);
-              },
-              content: Column(
-                children: <Widget>[
-                  ClayContainer(
-                    color: Colors.grey,
-                    child: Container(
-                      // elevation: 4.0,
-                      child: Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                                "assets/img/barracks_background3.png"),
-                            fit: BoxFit.cover,
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (ctx, idx) {
+          return StickyHeaderBuilder(
+            overlapHeaders: true,
+            builder: (BuildContext context, double stuckAmount) {
+              stuckAmount = 1.0 - stuckAmount.clamp(0.0, 1.0);
+              return _buildBarracksStickyHeader(stuckAmount, _shops, idx);
+            },
+            content: Column(
+              children: <Widget>[
+                Card(
+                  elevation: 5.0,
+                  child: Container(
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image:
+                            AssetImage("assets/img/barracks_background3.png"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: 70),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: Hero(
+                            tag: 'ShopImageTag',
+                            child: CachedNetworkImage(
+                              fadeInCurve: Curves.easeInCubic,
+                              fadeOutCurve: Curves.easeInCubic,
+                              fadeInDuration: const Duration(milliseconds: 150),
+                              placeholderFadeInDuration:
+                                  const Duration(milliseconds: 150),
+                              fadeOutDuration:
+                                  const Duration(milliseconds: 150),
+                              imageUrl: _shops[idx].imgUrl,
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            ),
                           ),
                         ),
-                        child: Column(
+                        ButtonBar(
+                          alignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            SizedBox(height: 70),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Hero(
-                                tag: 'ShopImageTag',
-                                child: CachedNetworkImage(
-                                  imageUrl: _shops[idx].imgUrl,
-                                  placeholder: (context, url) =>
-                                      CircularProgressIndicator(),
-                                  errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                ),
+                            OutlineButton(
+                              splashColor: Colors.grey[500],
+                              child: Row(
+                                children: <Widget>[
+                                  const Icon(
+                                    FontAwesomeIcons.book,
+                                    color: Colors.white60,
+                                  ),
+                                  const Text(' Book Here',
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 14)),
+                                ],
                               ),
+                              onPressed: () =>
+                                  _selectShop(context, _shops[idx].id),
                             ),
-                            ButtonBar(
-                              alignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                OutlineButton(
-                                  splashColor: Colors.grey[500],
-                                  child: Row(
-                                    children: <Widget>[
-                                      const Icon(
-                                        FontAwesomeIcons.book,
-                                        color: Colors.white60,
-                                      ),
-                                      const Text(' Book Here',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14)),
-                                    ],
+                            OutlineButton(
+                              splashColor: Colors.grey[500],
+                              child: Row(
+                                children: <Widget>[
+                                  const Icon(
+                                    FontAwesomeIcons.mapMarkerAlt,
+                                    color: Colors.white60,
                                   ),
-                                  onPressed: () {},
-                                ),
-                                OutlineButton(
-                                  splashColor: Colors.grey[500],
-                                  child: Row(
-                                    children: <Widget>[
-                                      const Icon(
-                                        FontAwesomeIcons.mapMarkerAlt,
-                                        color: Colors.white60,
-                                      ),
-                                      const Text(
-                                        ' Find Us',
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 14),
-                                      ),
-                                    ],
+                                  const Text(
+                                    ' Find Us',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 14),
                                   ),
-                                  onPressed: () async {
-                                    if (await MapLauncher.isMapAvailable(
-                                        MapType.google)) {
-                                      await MapLauncher.launchMap(
-                                        mapType: MapType.google,
-                                        coords: Coords(
-                                            double.parse(_shops[idx].lat),
-                                            double.parse(_shops[idx].long)),
-                                        title: _shops[idx].name,
-                                        description:
-                                            'Barracks Barbers & Shaves Co.',
-                                      );
-                                    }
-                                  },
-                                ),
-                                OutlineButton(
-                                  splashColor: Colors.grey[500],
-                                  child: Row(
-                                    children: <Widget>[
-                                      const Icon(
-                                        FontAwesomeIcons.phone,
-                                        color: Colors.white60,
-                                      ),
-                                      const Text(
-                                        ' Call Us',
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 14),
-                                      ),
-                                    ],
+                                ],
+                              ),
+                              onPressed: () async {
+                                if (await MapLauncher.isMapAvailable(
+                                    MapType.google)) {
+                                  await MapLauncher.launchMap(
+                                    mapType: MapType.google,
+                                    coords: Coords(
+                                        double.parse(_shops[idx].lat),
+                                        double.parse(_shops[idx].long)),
+                                    title: _shops[idx].name,
+                                    description:
+                                        'Barracks Barbers & Shaves Co.',
+                                  );
+                                }
+                              },
+                            ),
+                            OutlineButton(
+                              splashColor: Colors.grey[500],
+                              child: Row(
+                                children: <Widget>[
+                                  const Icon(
+                                    FontAwesomeIcons.phone,
+                                    color: Colors.white60,
                                   ),
-                                  onPressed: () async {
-                                    try {
-                                      print(
-                                          'calling ${_shops[idx].phonenumber}');
-                                      launch(
-                                          'tel://${_shops[idx].phonenumber}');
-                                    } catch (e) {
-                                      print(e.toString());
-                                    }
-                                  },
-                                ),
-                              ],
+                                  const Text(
+                                    ' Call Us',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                              onPressed: () async {
+                                try {
+                                  print('calling ${_shops[idx].phonenumber}');
+                                  launch('tel://${_shops[idx].phonenumber}');
+                                } catch (e) {
+                                  print(e.toString());
+                                }
+                              },
                             ),
                           ],
                         ),
-                      ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 40),
-                ],
-              ),
-            );
-          },
-          childCount: _shops.length,
-        ),
-      );
+                ),
+                SizedBox(height: 40),
+              ],
+            ),
+          );
+        },
+        childCount: _shops.length,
+      ),
+    );
   }
 
   Container _buildBarracksStickyHeader(

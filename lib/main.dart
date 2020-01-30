@@ -3,6 +3,7 @@ import 'package:barracks_app/models/customer.dart';
 import 'package:barracks_app/models/schedule.dart';
 import 'package:barracks_app/models/shop.dart';
 import 'package:barracks_app/screens/barrackswrapper.dart';
+import 'package:barracks_app/screens/home/barracksbookingscreen.dart';
 import 'package:barracks_app/services/auth.dart';
 import 'package:barracks_app/services/database.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,11 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.black,
           accentColor: Colors.grey,
         ),
-        home: BarracksWrapper(),
+        initialRoute: BarracksWrapper.routeName,
+        routes: {
+          BarracksWrapper.routeName: (ctx) => BarracksWrapper(),
+          BarracksBookingScreen.routeName: (ctx) => BarracksBookingScreen(),
+        },
       ),
     );
   }

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BarracksWrapper extends StatelessWidget {
+  static const routeName = '/BarracksWrapper';
+
   @override
   Widget build(BuildContext context) {
     final customer = Provider.of<Customer>(context);

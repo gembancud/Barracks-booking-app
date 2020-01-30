@@ -5,7 +5,7 @@ class BarracksAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      floating: false,
+      floating: true,
       // pinned: true,
       elevation: 10.0,
       forceElevated: true,
