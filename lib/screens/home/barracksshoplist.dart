@@ -52,15 +52,8 @@ class _BarracksShopsListState extends State<BarracksShopsList> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8),
                           child: Hero(
-                            tag: 'ShopImageTag' + _shops[idx].name,
+                            tag: 'ShopImageTag' + _shops[idx].id,
                             child: CachedNetworkImage(
-                              fadeInCurve: Curves.easeInCubic,
-                              fadeOutCurve: Curves.easeInCubic,
-                              fadeInDuration: const Duration(milliseconds: 150),
-                              placeholderFadeInDuration:
-                                  const Duration(milliseconds: 150),
-                              fadeOutDuration:
-                                  const Duration(milliseconds: 150),
                               imageUrl: _shops[idx].imgUrl,
                               placeholder: (context, url) =>
                                   CircularProgressIndicator(),
@@ -178,7 +171,7 @@ class _BarracksShopsListState extends State<BarracksShopsList> {
                       color: Colors.black.withOpacity(1 - stuckAmount))),
             ),
             Hero(
-              tag: 'ShopHeaderTag' + _shops[idx].name,
+              tag: 'ShopHeaderTag' + _shops[idx].id,
               child: Center(
                 child: Text(_shops[idx].name,
                     style: TextStyle(

@@ -58,7 +58,7 @@ class BookingHeaderDelegate implements SliverPersistentHeaderDelegate {
               size: 30.0,
             ),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.of(context).pop();
             },
           ),
         )
