@@ -465,7 +465,16 @@ class _LoginPageState extends State<LoginPage>
                 Padding(
                   padding: EdgeInsets.only(top: 10.0),
                   child: GestureDetector(
-                    onTap: () => showInSnackBar("Google button pressed"),
+                    onTap: () async {
+                      dynamic result = await _auth.googleSignIn();
+                      if (result == null) {
+                        setState(() {
+                          showInSnackBar("Google Sign In unsuccessful");
+                        });
+                      } else {
+                        showInSnackBar('Joined Barracks successfully!');
+                      }
+                    },
                     child: Container(
                       padding: const EdgeInsets.all(15.0),
                       decoration: new BoxDecoration(

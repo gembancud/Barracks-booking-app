@@ -113,7 +113,7 @@ class BarracksBookingBarberBuilder extends StatelessWidget {
                               await DataConnectionChecker().hasConnection;
 
                           if (result == true) {
-                            final docId = await DatabaseService()
+                            dynamic docId = await DatabaseService()
                                 .BookSchedule(_customer, _barber, shop, date);
                             print('Added $docId');
 

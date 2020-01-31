@@ -1,6 +1,7 @@
 import 'package:barracks_app/models/customer.dart';
 import 'package:barracks_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -65,7 +66,30 @@ class AuthService {
     }
   }
 
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   //Google Sign in
+  Future googleSignIn() async {
+    try {
+      GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+      GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.getCredential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final AuthResult authResult =
+          await _auth.signInWithCredential(credential);
+      final FirebaseUser user = authResult.user;
+
+      await DatabaseService(uid: user.uid)
+          .updateCustomerData(googleUser.displayName, '', googleUser.email, 0);
+      return _customerFromFirebase(user);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 
   //Sign out
   Future signOut() async {
