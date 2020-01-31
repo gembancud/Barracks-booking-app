@@ -1,5 +1,6 @@
 import 'package:barracks_app/models/shop.dart';
 import 'package:barracks_app/screens/home/barracksbottomnavigationbar.dart';
+import 'package:barracks_app/screens/shopbooking/barracksbookingbarberbuilder.dart';
 import 'package:barracks_app/screens/shopbooking/barracksbookingcontent.dart';
 import 'package:barracks_app/screens/shopbooking/bookingheaderdelegate.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,12 @@ class BarracksBookingScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SliverToBoxAdapter(child: BarracksBookingContent(shop)),
+            SliverList(
+              delegate: SliverChildBuilderDelegate((ctx, idx) {
+                return BarracksBookingBarberBuilder(idx, shop);
+              }, childCount: shop.barbers.length),
+            )
+            // SliverFillRemaining(child: BarracksBookingContent(shop)),
           ],
         ),
       ),

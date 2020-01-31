@@ -175,11 +175,14 @@ class _BarracksShopsListState extends State<BarracksShopsList> {
             ),
             Hero(
               tag: 'ShopHeaderTag' + _shops[idx].id,
-              child: Center(
-                child: Text(_shops[idx].name,
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white.withOpacity(stuckAmount))),
+              child: Material(
+                type: MaterialType.transparency,
+                child: Center(
+                  child: Text(_shops[idx].name,
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white.withOpacity(stuckAmount))),
+                ),
               ),
             )
           ],

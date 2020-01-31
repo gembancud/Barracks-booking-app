@@ -35,13 +35,16 @@ class BookingHeaderDelegate implements SliverPersistentHeaderDelegate {
           bottom: 16.0,
           child: Hero(
             tag: 'ShopHeaderTag' + shop.id,
-            child: Container(
-              decoration: BoxDecoration(color: Colors.black54),
-              child: Text(shop.name,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                  )),
+            child: Material(
+              type: MaterialType.transparency,
+              child: Container(
+                decoration: BoxDecoration(color: Colors.black54),
+                child: Text(shop.name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    )),
+              ),
             ),
           ),
         ),
