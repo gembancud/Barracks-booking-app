@@ -1,5 +1,5 @@
-import 'package:barracks_app/screens/home/bookingmenu/bookinglist.dart';
-import 'package:barracks_app/screens/home/bookingmenu/bookingmenunotifier.dart';
+import 'package:barracks_app/screens/home/(unused)bookingmenu/bookinglist.dart';
+import 'package:barracks_app/screens/home/(unused)bookingmenu/bookingmenunotifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

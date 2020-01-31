@@ -1,4 +1,5 @@
 import 'package:barracks_app/models/shop.dart';
+import 'package:barracks_app/screens/barrackswrapper.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
@@ -8,25 +9,21 @@ import 'package:provider/provider.dart';
 class BookingHeaderDelegate implements SliverPersistentHeaderDelegate {
   final double minExtent;
   final double maxExtent;
-  final String shopid;
+  final Shop shop;
 
   BookingHeaderDelegate(
-      {this.minExtent, @required this.maxExtent, @required this.shopid});
+      {this.minExtent, @required this.maxExtent, @required this.shop});
 
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final _shops = Provider.of<List<Shop>>(context);
-    final Shop _shop = _shops.firstWhere((shop) {
-      return shop.id == shopid;
-    }) as Shop;
     return Stack(
       fit: StackFit.expand,
       children: <Widget>[
         Hero(
-          tag: 'ShopImageTag' + shopid,
+          tag: 'ShopImageTag' + shop.id,
           child: CachedNetworkImage(
-            imageUrl: _shop.imgUrl,
+            imageUrl: shop.imgUrl,
             placeholder: (context, url) => CircularProgressIndicator(),
             errorWidget: (context, url, error) => Icon(Icons.error),
             fit: BoxFit.cover,
@@ -37,10 +34,10 @@ class BookingHeaderDelegate implements SliverPersistentHeaderDelegate {
           right: 16.0,
           bottom: 16.0,
           child: Hero(
-            tag: 'ShopHeaderTag' + shopid,
+            tag: 'ShopHeaderTag' + shop.id,
             child: Container(
               decoration: BoxDecoration(color: Colors.black54),
-              child: Text(_shop.name,
+              child: Text(shop.name,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -58,6 +55,7 @@ class BookingHeaderDelegate implements SliverPersistentHeaderDelegate {
               size: 30.0,
             ),
             onPressed: () {
+              // Navigator.of(context).pop();
               Navigator.of(context).pop();
             },
           ),

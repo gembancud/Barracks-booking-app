@@ -14,10 +14,10 @@ class BarracksShopsList extends StatefulWidget {
 }
 
 class _BarracksShopsListState extends State<BarracksShopsList> {
-  void _selectShop(BuildContext ctx, String shopid) {
+  void _selectShop(BuildContext ctx, Shop shop) {
     Navigator.of(ctx).pushNamed(
       BarracksBookingScreen.routeName,
-      arguments: shopid,
+      arguments: shop,
     );
   }
 
@@ -81,7 +81,7 @@ class _BarracksShopsListState extends State<BarracksShopsList> {
                                 ],
                               ),
                               onPressed: () =>
-                                  _selectShop(context, _shops[idx].id),
+                                  _selectShop(context, _shops[idx]),
                             ),
                             OutlineButton(
                               splashColor: Colors.grey[500],

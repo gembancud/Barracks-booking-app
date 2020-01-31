@@ -1,3 +1,4 @@
+import 'package:barracks_app/models/shop.dart';
 import 'package:barracks_app/screens/shopbooking/bookingheaderdelegate.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +7,7 @@ class BarracksBookingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _shopId = ModalRoute.of(context).settings.arguments as String;
+    final shop = ModalRoute.of(context).settings.arguments as Shop;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(color: Colors.white),
@@ -15,13 +16,21 @@ class BarracksBookingScreen extends StatelessWidget {
             SliverPersistentHeader(
               pinned: true,
               delegate: BookingHeaderDelegate(
-                  minExtent: 80, maxExtent: 250, shopid: _shopId),
+                  minExtent: 80, maxExtent: 250, shop: shop),
             ),
             SliverFillRemaining(
-              child: Center(
-                child: Text('bilat'),
-              ),
-            )
+                child: Column(
+              children: <Widget>[
+                Container(
+                  child: Text(
+                    'Schedules:',
+                    style: TextStyle(
+                      color: Colors.grey[700],
+                    ),
+                  ),
+                )
+              ],
+            ))
           ],
         ),
       ),

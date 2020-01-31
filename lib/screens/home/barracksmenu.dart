@@ -13,7 +13,7 @@ class BarracksMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final _shops = Provider.of<List<Shop>>(context);
     if (_shops == null)
-      return Scaffold(body: Loading());
+      return Loading();
     else
       // for (Shop shop in _shops) print(shop.name);
 
