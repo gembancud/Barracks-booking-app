@@ -1,6 +1,7 @@
 import 'package:barracks_app/models/shop.dart';
 import 'package:barracks_app/screens/shopbooking/barracksbookingscreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:map_launcher/map_launcher.dart';
@@ -80,8 +81,16 @@ class _BarracksShopsListState extends State<BarracksShopsList> {
                                           color: Colors.black, fontSize: 14)),
                                 ],
                               ),
-                              onPressed: () =>
-                                  _selectShop(context, _shops[idx]),
+                              onPressed: () async {
+                                bool result =
+                                    await DataConnectionChecker().hasConnection;
+                                if (result == true) {
+                                  _selectShop(context, _shops[idx]);
+                                } else {
+                                  print('No internet :( Reason:');
+                                  print(DataConnectionChecker().lastTryResults);
+                                }
+                              },
                             ),
                             OutlineButton(
                               splashColor: Colors.grey[500],

@@ -1,4 +1,5 @@
 import 'package:barracks_app/models/shop.dart';
+import 'package:barracks_app/screens/shopbooking/barracksbookingcontent.dart';
 import 'package:barracks_app/screens/shopbooking/bookingheaderdelegate.dart';
 import 'package:flutter/material.dart';
 
@@ -18,19 +19,7 @@ class BarracksBookingScreen extends StatelessWidget {
               delegate: BookingHeaderDelegate(
                   minExtent: 80, maxExtent: 250, shop: shop),
             ),
-            SliverFillRemaining(
-                child: Column(
-              children: <Widget>[
-                Container(
-                  child: Text(
-                    'Schedules:',
-                    style: TextStyle(
-                      color: Colors.grey[700],
-                    ),
-                  ),
-                )
-              ],
-            ))
+            SliverFillRemaining(child: BarracksBookingContent(shop))
           ],
         ),
       ),
