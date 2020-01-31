@@ -1,11 +1,8 @@
-import 'package:barracks_app/models/barber.dart';
 import 'package:barracks_app/models/shop.dart';
 import 'package:barracks_app/screens/home/(unused)bookingmenu/bookingmenu.dart';
 import 'package:barracks_app/screens/home/(unused)bookingmenu/bookingmenunotifier.dart';
 import 'package:barracks_app/shared/loading.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:transformer_page_view/transformer_page_view.dart';
 

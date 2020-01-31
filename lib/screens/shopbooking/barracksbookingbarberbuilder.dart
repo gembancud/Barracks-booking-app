@@ -98,16 +98,10 @@ class BarracksBookingBarberBuilder extends StatelessWidget {
                           await isAvailable(_barber, _schedules, date);
                       if (bookableresult == true) {
                         try {
-                          Flushbar(
-                            message: 'Checking your Internet Connection',
-                            icon: Icon(
-                              Icons.info_outline,
-                              size: 28.0,
-                              color: Colors.white,
-                            ),
-                            duration: Duration(seconds: 3),
-                            leftBarIndicatorColor: Colors.white,
-                          )..show(context);
+                          showFlushbar(
+                              context,
+                              'Checking your Internet Connection',
+                              Colors.white);
 
                           bool result =
                               await DataConnectionChecker().hasConnection;
@@ -118,44 +112,21 @@ class BarracksBookingBarberBuilder extends StatelessWidget {
                             print('Added $docId');
 
                             print('May net!');
-                            Flushbar(
-                              message: 'Successfully Added Schedule',
-                              icon: Icon(
-                                Icons.info_outline,
-                                size: 28.0,
-                                color: Colors.green[300],
-                              ),
-                              duration: Duration(seconds: 3),
-                              leftBarIndicatorColor: Colors.green[300],
-                            )..show(context);
+                            showFlushbar(context, 'Successfully Added Schedule',
+                                Colors.green[300]);
                           } else {
                             print(DataConnectionChecker().lastTryResults);
-                            Flushbar(
-                              message:
-                                  'Unable to book without Internet Connection',
-                              icon: Icon(
-                                Icons.info_outline,
-                                size: 28.0,
-                                color: Colors.red[300],
-                              ),
-                              duration: Duration(seconds: 3),
-                              leftBarIndicatorColor: Colors.red[300],
-                            )..show(context);
+                            showFlushbar(
+                                context,
+                                'Unable to book without Internet Connection',
+                                Colors.red[300]);
                           }
                         } catch (e) {
                           print(e.toString());
                         }
                       } else {
-                        Flushbar(
-                          message: 'Schedule is unbookable',
-                          icon: Icon(
-                            Icons.info_outline,
-                            size: 28.0,
-                            color: Colors.red[300],
-                          ),
-                          duration: Duration(seconds: 3),
-                          leftBarIndicatorColor: Colors.red[300],
-                        )..show(context);
+                        showFlushbar(
+                            context, 'Schedule is unbookable', Colors.red[300]);
                       }
                     },
                   );
@@ -166,5 +137,19 @@ class BarracksBookingBarberBuilder extends StatelessWidget {
         )
       ],
     );
+  }
+
+  Flushbar<Object> showFlushbar(
+      BuildContext context, String message, Color color) {
+    return Flushbar(
+      message: message,
+      icon: Icon(
+        Icons.info_outline,
+        size: 28.0,
+        color: color,
+      ),
+      duration: Duration(seconds: 3),
+      leftBarIndicatorColor: color,
+    )..show(context);
   }
 }

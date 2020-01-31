@@ -1,8 +1,6 @@
 import 'package:barracks_app/models/shop.dart';
 import 'package:barracks_app/screens/shopbooking/barracksbookingscreen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:map_launcher/map_launcher.dart';
