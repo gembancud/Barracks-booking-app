@@ -37,110 +37,115 @@ class _BarracksShopsListState extends State<BarracksShopsList> {
               children: <Widget>[
                 Card(
                   elevation: 5.0,
-                  child: Container(
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image:
-                            AssetImage("assets/img/barracks_background3.png"),
-                        fit: BoxFit.cover,
+                  child: InkWell(
+                    onTap: () async {
+                      _selectShop(context, _shops[idx]);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image:
+                              AssetImage("assets/img/barracks_background3.png"),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(height: 70),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: Hero(
-                            tag: 'ShopImageTag' + _shops[idx].id,
-                            child: CachedNetworkImage(
-                              imageUrl: _shops[idx].imgUrl,
-                              placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
-                              fit: BoxFit.cover,
-                              width: double.infinity,
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(height: 70),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: Hero(
+                              tag: 'ShopImageTag' + _shops[idx].id,
+                              child: CachedNetworkImage(
+                                imageUrl: _shops[idx].imgUrl,
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
                             ),
                           ),
-                        ),
-                        ButtonBar(
-                          alignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            OutlineButton(
-                              splashColor: Colors.grey[500],
-                              child: Row(
-                                children: <Widget>[
-                                  const Icon(
-                                    FontAwesomeIcons.book,
-                                    color: Colors.white60,
-                                  ),
-                                  const Text(' Book Here',
+                          ButtonBar(
+                            alignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              OutlineButton(
+                                splashColor: Colors.grey[500],
+                                child: Row(
+                                  children: <Widget>[
+                                    const Icon(
+                                      FontAwesomeIcons.book,
+                                      color: Colors.white60,
+                                    ),
+                                    const Text(' Book Here',
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 14)),
+                                  ],
+                                ),
+                                onPressed: () async {
+                                  _selectShop(context, _shops[idx]);
+                                },
+                              ),
+                              OutlineButton(
+                                splashColor: Colors.grey[500],
+                                child: Row(
+                                  children: <Widget>[
+                                    const Icon(
+                                      FontAwesomeIcons.mapMarkerAlt,
+                                      color: Colors.white60,
+                                    ),
+                                    const Text(
+                                      ' Find Us',
                                       style: TextStyle(
-                                          color: Colors.black, fontSize: 14)),
-                                ],
+                                          color: Colors.black, fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                                onPressed: () async {
+                                  if (await MapLauncher.isMapAvailable(
+                                      MapType.google)) {
+                                    await MapLauncher.launchMap(
+                                      mapType: MapType.google,
+                                      coords: Coords(
+                                          double.parse(_shops[idx].lat),
+                                          double.parse(_shops[idx].long)),
+                                      title: _shops[idx].name,
+                                      description:
+                                          'Barracks Barbers & Shaves Co.',
+                                    );
+                                  }
+                                },
                               ),
-                              onPressed: () async {
-                                _selectShop(context, _shops[idx]);
-                              },
-                            ),
-                            OutlineButton(
-                              splashColor: Colors.grey[500],
-                              child: Row(
-                                children: <Widget>[
-                                  const Icon(
-                                    FontAwesomeIcons.mapMarkerAlt,
-                                    color: Colors.white60,
-                                  ),
-                                  const Text(
-                                    ' Find Us',
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 14),
-                                  ),
-                                ],
+                              OutlineButton(
+                                splashColor: Colors.grey[500],
+                                child: Row(
+                                  children: <Widget>[
+                                    const Icon(
+                                      FontAwesomeIcons.phone,
+                                      color: Colors.white60,
+                                    ),
+                                    const Text(
+                                      ' Call Us',
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                                onPressed: () async {
+                                  try {
+                                    print('calling ${_shops[idx].phonenumber}');
+                                    launch('tel://${_shops[idx].phonenumber}');
+                                  } catch (e) {
+                                    print(e.toString());
+                                  }
+                                },
                               ),
-                              onPressed: () async {
-                                if (await MapLauncher.isMapAvailable(
-                                    MapType.google)) {
-                                  await MapLauncher.launchMap(
-                                    mapType: MapType.google,
-                                    coords: Coords(
-                                        double.parse(_shops[idx].lat),
-                                        double.parse(_shops[idx].long)),
-                                    title: _shops[idx].name,
-                                    description:
-                                        'Barracks Barbers & Shaves Co.',
-                                  );
-                                }
-                              },
-                            ),
-                            OutlineButton(
-                              splashColor: Colors.grey[500],
-                              child: Row(
-                                children: <Widget>[
-                                  const Icon(
-                                    FontAwesomeIcons.phone,
-                                    color: Colors.white60,
-                                  ),
-                                  const Text(
-                                    ' Call Us',
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 14),
-                                  ),
-                                ],
-                              ),
-                              onPressed: () async {
-                                try {
-                                  print('calling ${_shops[idx].phonenumber}');
-                                  launch('tel://${_shops[idx].phonenumber}');
-                                } catch (e) {
-                                  print(e.toString());
-                                }
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

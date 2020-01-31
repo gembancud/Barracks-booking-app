@@ -12,7 +12,12 @@ class BarracksBookingScreen extends StatelessWidget {
     final shop = ModalRoute.of(context).settings.arguments as Shop;
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(color: Colors.white),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/img/barracks_background.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: CustomScrollView(
           slivers: <Widget>[
             SliverPersistentHeader(
@@ -23,9 +28,13 @@ class BarracksBookingScreen extends StatelessWidget {
             SliverToBoxAdapter(
               child: Container(
                 alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(
                   'Schedules',
-                  style: TextStyle(fontSize: 24),
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.grey[800],
+                  ),
                 ),
               ),
             ),
