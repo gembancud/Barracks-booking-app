@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:barracks_app/models/barber.dart';
 import 'package:barracks_app/models/customer.dart';
 import 'package:barracks_app/models/schedule.dart';
@@ -95,17 +97,22 @@ class DatabaseService {
   }
 
   List<Schedule> _scheduleListfromQuerySnapshot(QuerySnapshot snapshot) {
-    return snapshot.documents.map((doc) {
-      return Schedule(
-        id: doc.documentID,
-        service: doc.data['service'],
-        starttime: doc.data['starttime'],
-        bookdate: doc.data['bookdate'],
-        barberid: doc.data['barberid'],
-        customerid: doc.data['customerid'],
-        shopid: doc.data['shopid'],
-      );
-    }).toList();
+    try {
+      return snapshot.documents.map((doc) {
+        return Schedule(
+          id: doc.documentID,
+          service: doc.data['service'],
+          starttime: doc.data['starttime'].toDate(),
+          bookdate: doc.data['bookdate'].toDate(),
+          barberid: doc.data['barberid'],
+          customerid: doc.data['customerid'],
+          shopid: doc.data['shopid'],
+        );
+      }).toList();
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
   }
 
   Future BookSchedule(
@@ -136,6 +143,7 @@ class DatabaseService {
       return sched.documentID;
     } catch (e) {
       print(e.toString());
+      return null;
     }
   }
 }

@@ -25,7 +25,7 @@ class BarracksBookingScreen extends StatelessWidget {
                 child: Text('Schedules'),
               ),
             ),
-            SliverToBoxAdapter(child: BarracksBookingContent(shop))
+            SliverToBoxAdapter(child: BarracksBookingContent(shop)),
           ],
         ),
       ),

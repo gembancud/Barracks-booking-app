@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         ),
         StreamProvider<List<Schedule>>.value(
           value: DatabaseService().userschedules,
-        ),
+        )
       ],
       child: MaterialApp(
         title: 'Barracks App',

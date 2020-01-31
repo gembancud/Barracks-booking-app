@@ -38,8 +38,11 @@ class BarracksBookingContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final _customer = Provider.of<Customer>(context);
     final _barbers = Provider.of<List<Barber>>(context);
-    final _schedules = Provider.of<List<Schedule>>(context) ?? [];
+    final List<Schedule> _schedules = Provider.of<List<Schedule>>(context);
+    print('all schedules:');
+    for (var sched in _schedules) print(sched.id);
     final _barberslist = shop.barbers;
+
     return Container(
         child: ListView.builder(
       itemCount: _barberslist.length,
@@ -48,10 +51,12 @@ class BarracksBookingContent extends StatelessWidget {
           return barber.id == _barberslist[idx];
         });
         final List<Schedule> _schedule = _schedules.where((schedule) {
-          return (schedule.barberid == _barber.id &&
-              !schedule.isEnded &&
-              schedule.isToday);
+          return (schedule.barberid == _barber.id && !schedule.isEnded
+              // &&schedule.isToday
+              );
         }).toList();
+        print('Scheds of ${_barber.name}:');
+        for (Schedule sched in _schedule) print(sched.id);
         return ExpansionTile(
           leading: CachedNetworkImage(
             imageUrl: _barber.imgUrl,
@@ -61,24 +66,19 @@ class BarracksBookingContent extends StatelessWidget {
           title: Text(_barber.name),
           subtitle: Text('Dayoff: ${weekday(_barber.dayoff)}'),
           children: <Widget>[
-            Expanded(
-              child: ListView.builder(
-                itemCount: _schedule.length,
-                itemBuilder: (ctx, idx) {
-                  return ListTile(
-                    title: Text(
-                        DateFormat('MMMEd').format(_schedule[idx].starttime)),
-                  );
-                },
-              ),
-            ),
+            ..._schedule.map((sched) {
+              return ListTile(
+                title: Text(
+                    'From ${new DateFormat.jm().format(sched.starttime)} to ${new DateFormat.jm().format(sched.endtime)}'),
+              );
+            }).toList(),
             Container(
               child: Row(
                 children: <Widget>[
                   RaisedButton(
                     child: Text('Enlist'),
                     onPressed: () {
-                      DatePicker.showDatePicker(
+                      DatePicker.showDateTimePicker(
                         context,
                         showTitleActions: true,
                         minTime: DateTime.now(),
@@ -97,24 +97,26 @@ class BarracksBookingContent extends StatelessWidget {
                               duration: Duration(seconds: 3),
                               leftBarIndicatorColor: Colors.white,
                             )..show(context);
+
                             bool result =
                                 await DataConnectionChecker().hasConnection;
+
                             if (result == true) {
                               final docId = await DatabaseService()
                                   .BookSchedule(_customer, _barber, shop, date);
                               print('Added $docId');
-                              if (docId != null) {
-                                Flushbar(
-                                  message: 'Successfully Added Schedule',
-                                  icon: Icon(
-                                    Icons.info_outline,
-                                    size: 28.0,
-                                    color: Colors.green[300],
-                                  ),
-                                  duration: Duration(seconds: 3),
-                                  leftBarIndicatorColor: Colors.green[300],
-                                )..show(context);
-                              }
+
+                              print('May net!');
+                              Flushbar(
+                                message: 'Successfully Added Schedule',
+                                icon: Icon(
+                                  Icons.info_outline,
+                                  size: 28.0,
+                                  color: Colors.green[300],
+                                ),
+                                duration: Duration(seconds: 3),
+                                leftBarIndicatorColor: Colors.green[300],
+                              )..show(context);
                             } else {
                               print(DataConnectionChecker().lastTryResults);
                               Flushbar(

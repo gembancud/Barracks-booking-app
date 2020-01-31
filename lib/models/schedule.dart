@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 
@@ -6,7 +7,7 @@ enum Service { Basic, Bootcamp, Premium, Razor, Dye }
 
 class Schedule {
   final String id;
-  final Service service;
+  final int service;
   final DateTime starttime;
   final String barberid;
   final String customerid;
@@ -26,18 +27,19 @@ class Schedule {
   DateTime get endtime => starttime.add(duration);
 
   Duration get duration {
-    switch (service) {
-      case Service.Basic:
-        return Duration(minutes: 30);
-      case Service.Bootcamp:
-        return Duration(minutes: 30);
-      case Service.Premium:
-        return Duration(minutes: 30);
-      case Service.Razor:
-        return Duration(minutes: 30);
-      case Service.Dye:
-        return Duration(minutes: 30);
-    }
+    // switch (service as Service) {
+    //   case Service.Basic:
+    //     return Duration(minutes: 30);
+    //   case Service.Bootcamp:
+    //     return Duration(minutes: 30);
+    //   case Service.Premium:
+    //     return Duration(minutes: 30);
+    //   case Service.Razor:
+    //     return Duration(minutes: 30);
+    //   case Service.Dye:
+    //     return Duration(minutes: 30);
+    // }
+    return Duration(minutes: 30);
   }
 
   bool get isStarted => DateTime.now().isAfter(starttime) ? true : false;
