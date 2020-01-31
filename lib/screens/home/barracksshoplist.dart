@@ -83,24 +83,7 @@ class _BarracksShopsListState extends State<BarracksShopsList> {
                                 ],
                               ),
                               onPressed: () async {
-                                bool result =
-                                    await DataConnectionChecker().hasConnection;
-                                if (result == true) {
-                                  _selectShop(context, _shops[idx]);
-                                } else {
-                                  print(DataConnectionChecker().lastTryResults);
-                                  Flushbar(
-                                    message:
-                                        'Unable to book without Internet Connection',
-                                    icon: Icon(
-                                      Icons.info_outline,
-                                      size: 28.0,
-                                      color: Colors.red[300],
-                                    ),
-                                    duration: Duration(seconds: 3),
-                                    leftBarIndicatorColor: Colors.blue[300],
-                                  )..show(context);
-                                }
+                                _selectShop(context, _shops[idx]);
                               },
                             ),
                             OutlineButton(
