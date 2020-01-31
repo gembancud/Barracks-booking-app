@@ -1,17 +1,17 @@
 import 'package:barracks_app/models/shop.dart';
-import 'package:barracks_app/screens/home/barracksappbar.dart';
-import 'package:barracks_app/screens/home/barracksbottomnavigationbar.dart';
-import 'package:barracks_app/screens/home/barracksshoplist.dart';
+import 'package:barracks_app/screens/home/barracks/barracksappbar.dart';
+import 'package:barracks_app/screens/home/barracks/barracksbottomnavigationbar.dart';
+import 'package:barracks_app/screens/home/barracks/barracksnavigator.dart';
+import 'package:barracks_app/screens/home/barracks/barracksshoplist.dart';
 import 'package:barracks_app/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BarracksMenu extends StatelessWidget {
-  static const Color BackgroundGradientStart = const Color(0xFFeef2f3);
-  static const Color BackgroundGradientEnd = const Color(0xFF8e9eab);
   @override
   Widget build(BuildContext context) {
     final _shops = Provider.of<List<Shop>>(context);
+    final navigator = Provider.of<BarracksNavigator>(context);
     if (_shops == null)
       return Loading();
     else
@@ -25,11 +25,28 @@ class BarracksMenu extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          child: CustomScrollView(
-            slivers: <Widget>[
-              BarracksAppbar(),
-              SliverToBoxAdapter(child: SizedBox(height: 10)),
-              BarracksShopsList()
+          child: PageView(
+            controller: navigator.getPageController,
+            onPageChanged: (index) {
+              navigator.setPageIndex(index);
+            },
+            children: <Widget>[
+              CustomScrollView(
+                slivers: <Widget>[
+                  BarracksAppbar(),
+                  SliverToBoxAdapter(child: SizedBox(height: 10)),
+                  BarracksShopsList()
+                ],
+              ),
+              Container(
+                color: Colors.green,
+              ),
+              Container(
+                color: Colors.blue,
+              ),
+              Container(
+                color: Colors.red,
+              ),
             ],
           ),
         ),

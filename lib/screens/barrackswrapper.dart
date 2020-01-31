@@ -1,6 +1,7 @@
 import 'package:barracks_app/models/customer.dart';
 import 'package:barracks_app/screens/authenticate/authenticate.dart';
-import 'package:barracks_app/screens/home/barracksmenu.dart';
+import 'package:barracks_app/screens/home/barracks/barracksmenu.dart';
+import 'package:barracks_app/screens/home/barracks/barracksnavigator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,10 @@ class BarracksWrapper extends StatelessWidget {
     if (customer == null) {
       return Authenticate();
     } else {
-      return BarracksMenu();
+      return ChangeNotifierProvider<BarracksNavigator>(
+        create: (_) => BarracksNavigator(),
+        child: BarracksMenu(),
+      );
     }
   }
 }
