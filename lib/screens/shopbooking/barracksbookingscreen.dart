@@ -1,5 +1,4 @@
 import 'package:barracks_app/models/shop.dart';
-import 'package:barracks_app/screens/home/barracksbottomnavigationbar.dart';
 import 'package:barracks_app/screens/shopbooking/barracksbookingbarberbuilder.dart';
 import 'package:barracks_app/screens/shopbooking/barracksbookingcontent.dart';
 import 'package:barracks_app/screens/shopbooking/bookingheaderdelegate.dart';
@@ -39,7 +38,7 @@ class BarracksBookingScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BarracksBottomNavigationBar(),
+      // bottomNavigationBar: BarracksBottomNavigationBar(),
     );
   }
 }

@@ -82,6 +82,8 @@ class AuthService {
           await _auth.signInWithCredential(credential);
       final FirebaseUser user = authResult.user;
 
+      assert(!user.isAnonymous);
+
       await DatabaseService(uid: user.uid)
           .updateCustomerData(googleUser.displayName, '', googleUser.email, 0);
       return _customerFromFirebase(user);
@@ -94,6 +96,7 @@ class AuthService {
   //Sign out
   Future signOut() async {
     try {
+      if (_googleSignIn.isSignedIn() == true) _googleSignIn.signOut();
       return await _auth.signOut();
     } catch (e) {
       print(e.toString());

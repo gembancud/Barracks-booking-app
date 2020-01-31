@@ -1,4 +1,3 @@
-import 'package:barracks_app/models/barber.dart';
 import 'package:flutter/foundation.dart';
 
 class Shop {

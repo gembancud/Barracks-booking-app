@@ -1,5 +1,4 @@
 import 'package:barracks_app/screens/authenticate/gorgeouslogin/ui/login_page.dart';
-import 'package:barracks_app/screens/authenticate/signin.dart';
 import 'package:flutter/material.dart';
 
 class Authenticate extends StatelessWidget {

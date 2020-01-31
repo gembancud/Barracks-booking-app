@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:barracks_app/models/barber.dart';
 import 'package:barracks_app/models/customer.dart';
 import 'package:barracks_app/models/schedule.dart';
 import 'package:barracks_app/models/shop.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
 
 class DatabaseService {
   final String uid;
