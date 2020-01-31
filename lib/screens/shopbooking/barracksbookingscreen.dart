@@ -22,7 +22,11 @@ class BarracksBookingScreen extends StatelessWidget {
             ),
             SliverToBoxAdapter(
               child: Container(
-                child: Text('Schedules'),
+                alignment: Alignment.center,
+                child: Text(
+                  'Schedules',
+                  style: TextStyle(fontSize: 24),
+                ),
               ),
             ),
             SliverToBoxAdapter(child: BarracksBookingContent(shop)),

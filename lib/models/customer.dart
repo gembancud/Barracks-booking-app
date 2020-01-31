@@ -1,4 +1,3 @@
-import 'package:barracks_app/models/schedule.dart';
 import 'package:flutter/widgets.dart';
 
 class Customer {

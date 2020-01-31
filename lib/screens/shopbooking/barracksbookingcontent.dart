@@ -3,6 +3,7 @@ import 'package:barracks_app/models/customer.dart';
 import 'package:barracks_app/models/schedule.dart';
 import 'package:barracks_app/models/shop.dart';
 import 'package:barracks_app/services/database.dart';
+import 'package:barracks_app/shared/loading.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flushbar/flushbar.dart';
@@ -34,6 +35,15 @@ class BarracksBookingContent extends StatelessWidget {
     }
   }
 
+  bool isAvailable(Barber barber, List<Schedule> schedules, DateTime query) {
+    //if it is barber's day of then false;
+    if (DateTime.now().weekday == barber.dayoff) return false;
+    //checks if there is an overlap in the schedule to the query request
+    return schedules.every((schedule) =>
+        !(schedule.starttime.isBefore(query.add(const Duration(minutes: 30))) &&
+            schedule.endtime.isAfter(query)));
+  }
+
   @override
   Widget build(BuildContext context) {
     final _customer = Provider.of<Customer>(context);
@@ -42,9 +52,15 @@ class BarracksBookingContent extends StatelessWidget {
     print('all schedules:');
     for (var sched in _schedules) print(sched.id);
     final _barberslist = shop.barbers;
+    print('all barbers:');
+    for (var barber in _barberslist) print(barber);
+
+    if (_customer == null || _barbers == null || _schedules == null)
+      return Loading();
 
     return Container(
         child: ListView.builder(
+      shrinkWrap: true,
       itemCount: _barberslist.length,
       itemBuilder: (ctx, idx) {
         final _barber = _barbers.singleWhere((barber) {
@@ -68,6 +84,7 @@ class BarracksBookingContent extends StatelessWidget {
           children: <Widget>[
             ..._schedule.map((sched) {
               return ListTile(
+                leading: Text(new DateFormat.MMMEd().format(sched.starttime)),
                 title: Text(
                     'From ${new DateFormat.jm().format(sched.starttime)} to ${new DateFormat.jm().format(sched.endtime)}'),
               );
@@ -86,53 +103,69 @@ class BarracksBookingContent extends StatelessWidget {
                         currentTime: DateTime.now(),
                         locale: LocaleType.en,
                         onConfirm: (date) async {
-                          try {
+                          bool bookableresult =
+                              await isAvailable(_barber, _schedules, date);
+                          if (bookableresult == true) {
+                            try {
+                              Flushbar(
+                                message: 'Checking your Internet Connection',
+                                icon: Icon(
+                                  Icons.info_outline,
+                                  size: 28.0,
+                                  color: Colors.white,
+                                ),
+                                duration: Duration(seconds: 3),
+                                leftBarIndicatorColor: Colors.white,
+                              )..show(context);
+
+                              bool result =
+                                  await DataConnectionChecker().hasConnection;
+
+                              if (result == true) {
+                                final docId = await DatabaseService()
+                                    .BookSchedule(
+                                        _customer, _barber, shop, date);
+                                print('Added $docId');
+
+                                print('May net!');
+                                Flushbar(
+                                  message: 'Successfully Added Schedule',
+                                  icon: Icon(
+                                    Icons.info_outline,
+                                    size: 28.0,
+                                    color: Colors.green[300],
+                                  ),
+                                  duration: Duration(seconds: 3),
+                                  leftBarIndicatorColor: Colors.green[300],
+                                )..show(context);
+                              } else {
+                                print(DataConnectionChecker().lastTryResults);
+                                Flushbar(
+                                  message:
+                                      'Unable to book without Internet Connection',
+                                  icon: Icon(
+                                    Icons.info_outline,
+                                    size: 28.0,
+                                    color: Colors.red[300],
+                                  ),
+                                  duration: Duration(seconds: 3),
+                                  leftBarIndicatorColor: Colors.red[300],
+                                )..show(context);
+                              }
+                            } catch (e) {
+                              print(e.toString());
+                            }
+                          } else {
                             Flushbar(
-                              message: 'Checking your Internet Connection',
+                              message: 'Schedule is unbookable',
                               icon: Icon(
                                 Icons.info_outline,
                                 size: 28.0,
-                                color: Colors.white,
+                                color: Colors.red[300],
                               ),
                               duration: Duration(seconds: 3),
-                              leftBarIndicatorColor: Colors.white,
+                              leftBarIndicatorColor: Colors.red[300],
                             )..show(context);
-
-                            bool result =
-                                await DataConnectionChecker().hasConnection;
-
-                            if (result == true) {
-                              final docId = await DatabaseService()
-                                  .BookSchedule(_customer, _barber, shop, date);
-                              print('Added $docId');
-
-                              print('May net!');
-                              Flushbar(
-                                message: 'Successfully Added Schedule',
-                                icon: Icon(
-                                  Icons.info_outline,
-                                  size: 28.0,
-                                  color: Colors.green[300],
-                                ),
-                                duration: Duration(seconds: 3),
-                                leftBarIndicatorColor: Colors.green[300],
-                              )..show(context);
-                            } else {
-                              print(DataConnectionChecker().lastTryResults);
-                              Flushbar(
-                                message:
-                                    'Unable to book without Internet Connection',
-                                icon: Icon(
-                                  Icons.info_outline,
-                                  size: 28.0,
-                                  color: Colors.red[300],
-                                ),
-                                duration: Duration(seconds: 3),
-                                leftBarIndicatorColor: Colors.red[300],
-                              )..show(context);
-                            }
-                          } catch (e) {
-                            print(e.toString());
                           }
                         },
                       );
