@@ -1,8 +1,11 @@
+import 'package:barracks_app/models/customer.dart';
+import 'package:barracks_app/models/schedule.dart';
 import 'package:barracks_app/models/shop.dart';
 import 'package:barracks_app/screens/home/barracks/barracksappbar.dart';
 import 'package:barracks_app/screens/home/barracks/barracksbottomnavigationbar.dart';
 import 'package:barracks_app/screens/home/barracks/barracksnavigator.dart';
 import 'package:barracks_app/screens/home/barracks/barracksshoplist.dart';
+import 'package:barracks_app/services/database.dart';
 import 'package:barracks_app/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +15,8 @@ class BarracksMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final _shops = Provider.of<List<Shop>>(context);
     final navigator = Provider.of<BarracksNavigator>(context);
+    final customer = Provider.of<Customer>(context);
+
     if (_shops == null)
       return Loading();
     else
@@ -38,8 +43,11 @@ class BarracksMenu extends StatelessWidget {
                   BarracksShopsList()
                 ],
               ),
-              Container(
-                color: Colors.green,
+              StreamProvider<List<Schedule>>.value(
+                value: DatabaseService(uid: customer.id).personalschedules,
+                child: Container(
+                  color: Colors.green,
+                ),
               ),
               Container(
                 color: Colors.blue,

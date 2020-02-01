@@ -82,13 +82,21 @@ class DatabaseService {
 
 // Returns all current schedules from the database
 // Primarily for the purpose of the cusotmer booking app
-  Stream<List<Schedule>> get userschedules {
+  Stream<List<Schedule>> get currentschedules {
     DateTime now = new DateTime.now();
     return scheduleCollection
         .where(
           'starttime',
           isGreaterThanOrEqualTo: new DateTime(now.year, now.month, now.day),
         )
+        .snapshots()
+        .map(_scheduleListfromQuerySnapshot);
+  }
+
+  Stream<List<Schedule>> get personalschedules {
+    DateTime now = new DateTime.now();
+    return scheduleCollection
+        .where('customerid', isEqualTo: uid)
         .snapshots()
         .map(_scheduleListfromQuerySnapshot);
   }

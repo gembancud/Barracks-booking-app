@@ -17,53 +17,71 @@ class BookingHeaderDelegate implements SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Stack(
-      fit: StackFit.expand,
-      children: <Widget>[
-        Hero(
-          tag: 'ShopImageTag' + shop.id,
-          child: CachedNetworkImage(
-            imageUrl: shop.imgUrl,
-            placeholder: (context, url) => CircularProgressIndicator(),
-            errorWidget: (context, url, error) => Icon(Icons.error),
-            fit: BoxFit.cover,
-            width: double.infinity,
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black,
+            blurRadius: 20.0, // soften the shadow
+            spreadRadius: 2.0, //extend the shadow
+            offset: Offset(
+              0.0, // Move to right 10  horizontally
+              5.0, // Move to bottom 10 Vertically
+            ),
+          )
+        ],
+      ),
+      child: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Hero(
+            tag: 'ShopImageTag' + shop.id,
+            child: CachedNetworkImage(
+              imageUrl: shop.imgUrl,
+              placeholder: (context, url) => CircularProgressIndicator(),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+              fit: BoxFit.cover,
+              width: double.infinity,
+            ),
           ),
-        ),
-        Positioned(
-          right: 16.0,
-          bottom: 16.0,
-          child: Hero(
-            tag: 'ShopHeaderTag' + shop.id,
-            child: Material(
-              type: MaterialType.transparency,
-              child: Container(
-                decoration: BoxDecoration(color: Colors.black54),
-                child: Text(shop.name,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    )),
+          Positioned(
+            right: 16.0,
+            bottom: 16.0,
+            child: Hero(
+              tag: 'ShopHeaderTag' + shop.id,
+              child: Material(
+                type: MaterialType.transparency,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 3.0),
+                  decoration: BoxDecoration(
+                      color: Colors.black54,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Text(shop.name,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      )),
+                ),
               ),
             ),
           ),
-        ),
-        Positioned(
-          left: 16.0,
-          bottom: 10.0,
-          child: IconButton(
-            icon: Icon(
-              FontAwesomeIcons.arrowLeft,
-              color: Colors.white,
-              size: 30.0,
+          Positioned(
+            left: 16.0,
+            bottom: 10.0,
+            child: IconButton(
+              icon: Icon(
+                FontAwesomeIcons.arrowLeft,
+                color: Colors.white,
+                size: 30.0,
+              ),
+              onPressed: () {
+                // Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
             ),
-            onPressed: () {
-              // Navigator.of(context).pop();
-              Navigator.of(context).pop();
-            },
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 
