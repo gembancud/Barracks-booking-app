@@ -7,7 +7,7 @@ class BarracksShopView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
-        BarracksAppbar(),
+        BarracksShopAppbar(),
         SliverToBoxAdapter(child: SizedBox(height: 10)),
         BarracksShopsList()
       ],
